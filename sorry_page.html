@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I'm Sorry 🥺💗</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0; min-height:100vh; overflow:hidden;
+  font-family:Arial,sans-serif;
+  background:linear-gradient(135deg,#ffd6e7,#e8d9ff,#cceeff);
+  display:flex; align-items:center; justify-content:center;
+  color:#4a3150;
+}
+.card{
+  width:min(90%,430px); padding:34px 25px; text-align:center;
+  background:rgba(255,255,255,.78); backdrop-filter:blur(12px);
+  border:2px solid rgba(255,255,255,.8); border-radius:30px;
+  box-shadow:0 20px 60px rgba(93,55,100,.22);
+  position:relative; z-index:2;
+  animation:pop .8s ease;
+}
+.emoji{font-size:70px; animation:bounce 1.5s infinite}
+h1{font-size:42px;margin:5px 0 12px;color:#d94d82}
+p{font-size:18px;line-height:1.6;margin:10px 0}
+.small{font-size:14px;opacity:.75}
+button{
+  border:0; border-radius:999px; padding:14px 23px;
+  margin:9px 5px; font-size:16px; cursor:pointer;
+  transition:.25s; font-weight:bold;
+}
+#yes{background:#e85b91;color:white;box-shadow:0 8px 20px #e85b9144}
+#yes:hover{transform:scale(1.08)}
+#no{background:#eee;color:#666;position:relative}
+.hidden{display:none}
+#message{font-size:20px;font-weight:bold;color:#c53f75;margin-top:15px}
+.heart{
+ position:fixed; bottom:-30px; font-size:22px; pointer-events:none;
+ animation:float 5s linear forwards; z-index:1;
+}
+.confetti{
+ position:fixed; width:9px;height:9px; top:-15px; z-index:5;
+ animation:fall 2.5s linear forwards;
+}
+@keyframes pop{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes bounce{50%{transform:translateY(-10px) rotate(-5deg)}}
+@keyframes float{to{transform:translateY(-110vh) rotate(360deg);opacity:0}}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="emoji">🥺💗</div>
+  <h1>I'm Sorry!</h1>
+  <p id="mainText">
+    I know I messed up...<br>
+    So here's a tiny website dedicated to saying:
+    <b>SORRY! 🥹</b>
+  </p>
+
+  <p class="small">One small question... will you forgive me? 👉👈</p>
+
+  <button id="yes" onclick="forgive()">Okay, I forgive you 💗</button>
+  <button id="no" onclick="runAway()">No 😤</button>
+
+  <div id="message" class="hidden"></div>
+</div>
+
+<script>
+const noTexts = [
+  "Are you sure? 🥺",
+  "Think again... 😭",
+  "Pleaseee 👉👈",
+  "My heart is breaking 💔",
+  "Okay okay... one last chance? 🥹"
+];
+let tries = 0;
+
+function runAway(){
+  const b=document.getElementById("no");
+  tries++;
+  b.innerText=noTexts[Math.min(tries-1,noTexts.length-1)];
+  b.style.transform=`translate(${Math.random()*180-90}px,${Math.random()*100-50}px)`;
+  document.getElementById("mainText").innerHTML =
+    "Waittt 😭 I can explain!<br><b>I'm genuinely sorry.</b> 🥺";
+}
+
+function forgive(){
+  document.getElementById("mainText").innerHTML =
+    "YAYYYYY! 😭💗<br>Thank you for forgiving me!";
+  document.getElementById("message").classList.remove("hidden");
+  document.getElementById("message").innerHTML =
+    "You just made my day ✨<br>Deal? No more stupid mistakes. 🤝🥹";
+  document.getElementById("yes").style.display="none";
+  document.getElementById("no").style.display="none";
+  for(let i=0;i<70;i++) setTimeout(confetti, i*20);
+}
+
+function confetti(){
+  const c=document.createElement("div");
+  c.className="confetti";
+  c.style.left=Math.random()*100+"vw";
+  c.style.background=`hsl(${Math.random()*360},80%,65%)`;
+  c.style.animationDuration=(1.5+Math.random()*2)+"s";
+  document.body.appendChild(c);
+  setTimeout(()=>c.remove(),4000);
+}
+
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerText=["💗","💖","💕","✨","🌸"][Math.floor(Math.random()*5)];
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=(16+Math.random()*20)+"px";
+  h.style.animationDuration=(4+Math.random()*3)+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),7000);
+},500);
+</script>
+</body>
+</html>
